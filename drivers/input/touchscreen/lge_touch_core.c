@@ -824,11 +824,10 @@ int accuracy_filter_func(struct lge_touch_data *ts)
 
 	// finish the accuracy_filter
 	if(ts->accuracy_filter.finish_filter == 1 &&
-	   (ts->accuracy_filter.his_data.count > ts->accuracy_filter.touch_max_count
-	    || ts->ts_data.total_num != 1
-	    || id != 0)){
-		ts->accuracy_filter.finish_filter = 0;
-		ts->accuracy_filter.his_data.count = 0;
+	  (ts->accuracy_filter.his_data.count > ts->accuracy_filter.touch_max_count
+ || ts->ts_data.total_num != 1 || ts->ts_data.curr_data[0].id != 0)){
+ ts->accuracy_filter.finish_filter = 0;
+ ts->accuracy_filter.his_data.count = 0;
 	}
 
 	delta_x = (int)ts->accuracy_filter.his_data.x - (int)ts->ts_data.curr_data[0].x_position;
@@ -2522,7 +2521,7 @@ static int touch_probe(struct i2c_client *client, const struct i2c_device_id *id
 			TOUCH_ERR_MSG("FAIL: touch_reset gpio_request\n");
 			goto err_assign_platform_data;
 		}
-		gpio_direction_output(ts->pdata->reset_pin, 1);
+		gpio_direction_output(ts->pdata->reset_pin, 0);
 	}
 
 	atomic_set(&ts->device_init, 0);
@@ -2635,14 +2634,14 @@ static int touch_probe(struct i2c_client *client, const struct i2c_device_id *id
 		ts->jitter_filter.adjust_margin = 50;
 	}
 
-	/* accuracy solution */
+		/* accuracy solution */
 	if (ts->pdata->role->accuracy_filter_enable){
-		ts->accuracy_filter.ignore_pressure_gap = 5;
-		ts->accuracy_filter.delta_max = 30;
-		ts->accuracy_filter.max_pressure = 255;
-		ts->accuracy_filter.time_to_max_pressure = one_sec / 20;
-		ts->accuracy_filter.direction_count = one_sec / 6;
-		ts->accuracy_filter.touch_max_count = one_sec / 2;
+	ts->accuracy_filter.ignore_pressure_gap = 5;
+	ts->accuracy_filter.delta_max = 150;
+	ts->accuracy_filter.max_pressure = 250;
+	ts->accuracy_filter.time_to_max_pressure = one_sec / 20;
+	ts->accuracy_filter.direction_count = one_sec / 4;
+	ts->accuracy_filter.touch_max_count = one_sec / 2;
 	}
 
 #if defined(CONFIG_HAS_EARLYSUSPEND)

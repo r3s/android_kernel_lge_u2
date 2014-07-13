@@ -523,12 +523,13 @@ static void omap_cpu_early_suspend(struct early_suspend *h)
 	unsigned int cur;
 
 	mutex_lock(&omap_cpufreq_lock);
+
 	max_freq_cap = screen_off_max_freq;
-		cur = omap_getspeed(0);
-		if (cur > max_freq_cap)
-			omap_cpufreq_scale(max_freq_cap, cur);
 
+	cur = omap_getspeed(0);
 
+	if (cur > max_freq_cap)
+		omap_cpufreq_scale(max_freq_cap, cur);
 
 	mutex_unlock(&omap_cpufreq_lock);
 }

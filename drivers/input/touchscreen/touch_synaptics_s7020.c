@@ -713,6 +713,8 @@ int synaptics_ts_power(struct i2c_client* client, int power_ctrl)
 
 	switch (power_ctrl) {
 	case POWER_OFF:
+		if (ts->pdata->reset_pin > 0)
+			 gpio_set_value(ts->pdata->reset_pin, 0);
 		if (ts->pdata->pwr->use_regulator) {
 			regulator_disable(ts->regulator_vio);
 			regulator_disable(ts->regulator_vdd);
@@ -729,13 +731,9 @@ int synaptics_ts_power(struct i2c_client* client, int power_ctrl)
 		else
 			ts->pdata->pwr->power(1);
 
-		/* P2 H/W bug fix */
-		if (ts->pdata->reset_pin > 0) {
-			msleep(10);
-			gpio_set_value(ts->pdata->reset_pin, 0);
-			msleep(ts->pdata->role->reset_delay);
+		if (ts->pdata->reset_pin > 0)
 			gpio_set_value(ts->pdata->reset_pin, 1);
-		}
+
 		break;
 	case POWER_SLEEP:
 		if (unlikely(touch_i2c_write_byte(client, DEVICE_CONTROL_REG,
