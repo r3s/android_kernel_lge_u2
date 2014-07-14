@@ -181,7 +181,7 @@ struct omap_vdd_dep_info omap443x_vddiva_dep_info[] = {
 static struct omap_opp_def __initdata omap443x_opp_def_list[] = {
 	OPP_INITIALIZER("mpu", "dpll_mpu_ck", "mpu", true, 200000000, OMAP4430_VDD_MPU_OPP25_UV),
 	/* MPU OPP1 - OPP50 */
-	OPP_INITIALIZER("mpu", "dpll_mpu_ck", "mpu", true, 340000000, OMAP4430_VDD_MPU_OPP50_UV),
+	OPP_INITIALIZER("mpu", "dpll_mpu_ck", "mpu", true, 300000000, OMAP4430_VDD_MPU_OPP50_UV),
 	/* MPU OPP2 - OPP100 */
 	OPP_INITIALIZER("mpu", "dpll_mpu_ck", "mpu", true, 600000000, OMAP4430_VDD_MPU_OPP100_UV),
 	/* MPU OPP3 - OPP-Turbo */
