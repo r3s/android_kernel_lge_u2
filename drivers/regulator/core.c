@@ -831,8 +831,9 @@ static int machine_constraints_voltage(struct regulator_dev *rdev,
 
 		/* final: [min_uV..max_uV] valid iff constraints valid */
 		if (max_uV < min_uV) {
-			rdev_err(rdev, "unsupportable voltage constraints\n");
-			return -EINVAL;
+			rdev_err(rdev, " [artas182x] Unsupportable voltage constraints. Forcing applying\n");
+			constraints->max_uV = constraints->min_uV;
+			max_uV = min_uV;
 		}
 
 		/* use regulator's subset of machine constraints */
