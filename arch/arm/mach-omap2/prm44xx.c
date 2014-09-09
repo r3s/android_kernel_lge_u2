@@ -225,7 +225,7 @@ void lge_omap4_prm_global_warm_sw_reset(const char *cmd)
 #if defined(CONFIG_MACH_LGE_U2_P760)
 		} else if (!strcmp(cmd, "bootloader")) {
 			/* reboot and go into the fastboot mode in LK */
-			restart_reason = 0x77665544;
+			restart_reason = 0x77665533;
 			v |= OMAP4430_RST_GLOBAL_COLD_SW_MASK;
 		} else if (!strcmp(cmd, "oem-unlock")) {
 			/* reboot and go into the unlock mode in LK */
