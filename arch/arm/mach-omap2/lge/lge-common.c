@@ -228,11 +228,7 @@ void __init lge_common_init_early(void)
 
 static struct omap_musb_board_data musb_board_data = {
 	.interface_type		= MUSB_INTERFACE_UTMI,
-#ifdef CONFIG_USB_MUSB_OTG
 	.mode			= MUSB_OTG,
-#else
-	.mode			= MUSB_PERIPHERAL,
-#endif
 	.power			= 200,
 };
 
@@ -459,7 +455,7 @@ static inline void __init board_serial_init(void)
 		ARRAY_SIZE(uart4_pads), NULL);
 }
 
-#if defined(CONFIG_USB_EHCI_HCD_OMAP) || defined(CONFIG_USB_OHCI_HCD_OMAP3)
+
 static const struct usbhs_omap_board_data usbhs_bdata __initconst = {
 	.port_mode[0] = OMAP_EHCI_PORT_MODE_PHY,
 	.port_mode[1] = OMAP_OHCI_PORT_MODE_PHY_6PIN_DATSE0,
@@ -478,19 +474,18 @@ static void __init omap4_ehci_ohci_init(void)
 		OMAP_PIN_OFF_NONE);
 
 	/* Power on the ULPI PHY */
-	if (gpio_is_valid(OMAP4SDP_MDM_PWR_EN_GPIO)) {
-		gpio_request(OMAP4SDP_MDM_PWR_EN_GPIO, "USBB1 PHY VMDM_3V3");
-		gpio_direction_output(OMAP4SDP_MDM_PWR_EN_GPIO, 1);
-	}
+/*
+	if (gpio_is_valid(GPIO_IFX_USB_VBUS_EN)) {
+		gpio_request(GPIO_IFX_USB_VBUS_EN, "USBB1 PHY VMDM_3V3");
+		gpio_direction_output(GPIO_IFX_USB_VBUS_EN, 1);
+	}*/
 
 	usbhs_init(&usbhs_bdata);
 
 	return;
 
 }
-#else
-static void __init omap4_ehci_ohci_init(void){}
-#endif
+
 
 void __init lge_common_init(void)
 {
