@@ -468,41 +468,41 @@ static ssize_t bln_led_timeout_write(struct device *dev, struct device_attribute
 
 //
 
-static DEVICE_ATTR(enabled, S_IRUGO | S_IWUGO,
+static DEVICE_ATTR(enabled, S_IRUGO | S_IWUGO | S_IXUGO,
 		   bln_enabled_read,
 		   bln_enabled_write);
 
-static DEVICE_ATTR(notification_led, S_IRUGO | S_IWUGO,
+static DEVICE_ATTR(notification_led, S_IRUGO | S_IWUGO | S_IXUGO,
 		   bln_notification_read,
 		   bln_notification_write);
 
-static DEVICE_ATTR(blink_period_off, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(blink_period_off, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_blink_period_off_read, 
                    bln_blink_period_off_write );
 
-static DEVICE_ATTR(blink_period_on, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(blink_period_on, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_blink_period_on_read, 
                    bln_blink_period_on_write );
 
-static DEVICE_ATTR(blink_strobe, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(blink_strobe, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_blink_strobe_read, 
                    bln_blink_strobe_write );
 
-static DEVICE_ATTR(blink_keep, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(blink_keep, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_blink_keep_read, 
                    bln_blink_keep_write );
 
-static DEVICE_ATTR(notification_timeout, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(notification_timeout, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_notification_timeout_read, 
                    bln_notification_timeout_write );
                    
 //static DEVICE_ATTR(enable_touch_lights, S_IRUGO | S_IWUGO, 
-static DEVICE_ATTR(enable_touch_ex, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(enable_touch_ex, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_touch_led_enable_read, 
                    bln_touch_led_enable_write );
 
 #ifdef USE_TOUCH_TIMEOUT
-static DEVICE_ATTR(led_touch_timeout, S_IRUGO | S_IWUGO, 
+static DEVICE_ATTR(led_touch_timeout, S_IRUGO | S_IWUGO | S_IXUGO, 
                    bln_led_timeout_read, 
                    bln_led_timeout_write );
 #endif
